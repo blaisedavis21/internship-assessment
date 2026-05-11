@@ -12,10 +12,5 @@ def collatz(n):
     return sequence
 
 
-def distinct_numbers(numbers: List[int]) -> int:
-    """
-    You are given a list of integers (the list could be empty), calculate the number of distinct/unique values in the list.
-
-    E.g if numbers = [2, 3, 2, 2, 3], then the answer is 2 since there are only 2 unique numbers: 2 and 3.
-    """
-    pass
+def distinct_numbers(numbers):
+    return len(set(numbers))
