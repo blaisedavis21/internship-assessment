@@ -1,0 +1,60 @@
+import streamlit as st
+import base64
+import tempfile
+import os
+from dotenv import load_dotenv
+from backend.pipeline import run_pipeline
+
+load_dotenv()
+
+st.set_page_config(page_title="Sunbird AI App", page_icon="ð»", layout="centered")
+st.title("ð» Sunbird AI â Summarise & Translate")
+st.markdown("Summarise text or audio and translate it into a Ugandan local language.")
+st.divider()
+
+input_mode = st.radio("Choose input type", ["Text", "Audio file"], horizontal=True)
+text_input = None
+audio_file_path = None
+
+if input_mode == "Text":
+    text_input = st.text_area("Paste or type your text here", height=200, placeholder="Enter text to summarise...")
+else:
+    uploaded_file = st.file_uploader("Upload an audio file (MP3, WAV, OGG, M4A â max 5 minutes)", type=["mp3", "wav", "ogg", "m4a", "aac"])
+    if uploaded_file is not None:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(uploaded_file.name)[1]) as tmp_file:
+            tmp_file.write(uploaded_file.read())
+            audio_file_path = tmp_file.name
+        st.audio(uploaded_file)
+
+target_language = st.selectbox("Translate summary to", ["Luganda", "Runyankole", "Ateso", "Lugbara", "Acholi"])
+
+if st.button("Run Pipeline", type="primary"):
+    if not os.getenv("SUNBIRD_API_TOKEN"):
+        st.error("SUNBIRD_API_TOKEN is not set. Please add it to your .env file.")
+    else:
+        with st.spinner("Processing... this may take a moment."):
+            results = run_pipeline(text_input, audio_file_path, target_language)
+
+        if results["error"]:
+            st.error(f"Error: {results['error']}")
+        else:
+            st.success("Pipeline complete!")
+            st.divider()
+            if results["transcript"]:
+                st.subheader("Transcript")
+                st.write(results["transcript"])
+                st.divider()
+            st.subheader("Summary")
+            st.write(results["summary"])
+            st.divider()
+            st.subheader(f"Translation ({target_language})")
+            st.write(results["translation"])
+            st.divider()
+            if results["audio_base64"]:
+                st.subheader("Generated Audio")
+                audio_bytes = base64.b64decode(results["audio_base64"])
+                st.audio(audio_bytes, format="audio/wav")
+            else:
+                st.warning("Audio generation did not return output.")
+        if audio_file_path and os.path.exists(audio_file_path):
+            os.unlink(audio_file_path)
