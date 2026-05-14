@@ -36,7 +36,19 @@ if st.button("Run Pipeline", type="primary"):
             results = run_pipeline(text_input, audio_file_path, target_language)
 
         if results["error"]:
-            st.error(f"Error: {results['error']}")
+            error_msg = results["error"]
+            if "504" in error_msg or "timed out" in error_msg.lower():
+                st.error("The Sunbird AI server took too long to respond. Please try again or use a shorter input.")
+            elif "401" in error_msg or "403" in error_msg:
+                st.error("Authentication failed. Please check your SUNBIRD_API_TOKEN.")
+            elif "STT" in error_msg:
+                st.error("Audio transcription failed. Make sure your audio is clear and under 5 minutes.")
+            elif "Translation" in error_msg:
+                st.error("Translation failed. Please try again shortly.")
+            elif "TTS" in error_msg:
+                st.error("Audio generation failed. Please try again shortly.")
+            else:
+                st.error(f"Something went wrong: {error_msg}")
         else:
             st.success("Pipeline complete!")
             st.divider()
