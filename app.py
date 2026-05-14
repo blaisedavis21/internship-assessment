@@ -32,9 +32,12 @@ if st.button("Run Pipeline", type="primary"):
     if not os.getenv("SUNBIRD_API_TOKEN"):
         st.error("SUNBIRD_API_TOKEN is not set. Please add it to your .env file.")
     else:
-        with st.spinner("Processing... this may take a moment."):
-            results = run_pipeline(text_input, audio_file_path, target_language)
-
+        if input_mode == "Audio file":
+            with st.spinner("Transcribing audio..."):
+                results = run_pipeline(text_input, audio_file_path, target_language)
+        else:
+            with st.spinner("Summarising and translating..."):
+                results = run_pipeline(text_input, audio_file_path, target_language)
         if results["error"]:
             error_msg = results["error"]
             if "504" in error_msg or "timed out" in error_msg.lower():
