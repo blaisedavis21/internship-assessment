@@ -26,7 +26,16 @@ else:
             audio_file_path = tmp_file.name
         st.audio(uploaded_file)
 
-target_language = st.selectbox("Translate summary to", ["Luganda", "Runyankole", "Ateso", "Lugbara", "Acholi"])
+LANGUAGE_INFO = {
+    "Luganda": "Widely spoken in Central Uganda",
+    "Runyankole": "Spoken in the Ankole region of Western Uganda",
+    "Ateso": "Spoken by the Iteso people in Eastern Uganda",
+    "Lugbara": "Spoken in the West Nile region of Northwestern Uganda",
+    "Acholi": "Spoken in the Acholi sub-region of Northern Uganda",
+}
+
+target_language = st.selectbox("Translate summary to", list(LANGUAGE_INFO.keys()))
+st.caption(LANGUAGE_INFO[target_language])
 
 if st.button("Run Pipeline", type="primary"):
     if not os.getenv("SUNBIRD_API_TOKEN"):
