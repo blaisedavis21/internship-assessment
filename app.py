@@ -52,8 +52,7 @@ if st.button("Run Pipeline", type="primary"):
             st.divider()
             if results["audio_base64"]:
                 st.subheader("Generated Audio")
-                audio_bytes = base64.b64decode(results["audio_base64"])
-                st.audio(audio_bytes, format="audio/wav")
+                st.audio(results["audio_base64"])
             else:
                 st.warning("Audio generation did not return output.")
         if audio_file_path and os.path.exists(audio_file_path):
