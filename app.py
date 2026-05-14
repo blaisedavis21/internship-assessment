@@ -7,8 +7,8 @@ from backend.pipeline import run_pipeline
 
 load_dotenv()
 
-st.set_page_config(page_title="Sunbird AI App", page_icon="ð»", layout="centered")
-st.title("ð» Sunbird AI â Summarise & Translate")
+st.set_page_config(page_title="Sunbird AI App", page_icon="☀️", layout="centered")
+st.title("☀️ Sunbird AI — Summarise & Translate")
 st.markdown("Summarise text or audio and translate it into a Ugandan local language.")
 st.divider()
 
