@@ -1,5 +1,16 @@
 # Sunbird AI Internship Assessment Exercise
 
+---
+title: Sunbird AI App
+emoji: 🌻
+colorFrom: yellow
+colorTo: green
+sdk: streamlit
+sdk_version: 1.44.1
+app_file: app.py
+pinned: false
+---
+
 This assessment consists of 3 parts:
 - Programming exercises.
 - Build a simple command line app using the Sunbird AI API.
