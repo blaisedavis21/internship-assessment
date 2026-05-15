@@ -104,7 +104,7 @@ Output panel:
 
 - Audio files longer than 5 minutes are rejected before processing.
 - Only five target languages are supported: Luganda, Runyankole, Ateso, Lugbara, and Acholi.
-- The Sunbird AI free tier can be slow during peak hours — if a timeout occurs, try again with shorter input.
+- The Sunbird AI free tier can be slow during peak hours, if a timeout occurs, try again with shorter input.
 - Only English audio is supported for STT transcription.
 - Very noisy audio can reduce transcription quality, which affects the summary, translation, and generated speech.
 
