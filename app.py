@@ -19,7 +19,7 @@ audio_file_path = None
 if input_mode == "Text":
     text_input = st.text_area("Paste or type your text here", height=200, placeholder="Enter text to summarise...")
 else:
-    uploaded_file = st.file_uploader("Upload an audio file (MP3, WAV, OGG, M4A â max 5 minutes)", type=["mp3", "wav", "ogg", "m4a", "aac"])
+    uploaded_file = st.file_uploader("Upload an audio file (MP3, WAV, OGG, M4A, max 5 minutes)", type=["mp3", "wav", "ogg", "m4a", "aac"])
     if uploaded_file is not None:
         with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(uploaded_file.name)[1]) as tmp_file:
             tmp_file.write(uploaded_file.read())
