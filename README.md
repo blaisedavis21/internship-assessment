@@ -89,6 +89,17 @@ See  for the local development template.
 4. Click **Run Pipeline**.
 5. Review the transcript (audio only), summary, translated summary, and generated audio player.
 
+### Screenshots
+
+Text input:
+![Text input](screenshots/text-input.png)
+
+Audio upload:
+![Audio upload](screenshots/audio-upload.png)
+
+Output panel:
+![Output](screenshots/output.png)
+
 ## Known Limitations
 
 - Audio files longer than 5 minutes are rejected before processing.
